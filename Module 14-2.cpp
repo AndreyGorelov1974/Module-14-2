@@ -37,5 +37,20 @@ else
 
 int main()
 {
+    int a = 0;
+    std::cin >> a;
+
+    while ((a < 1) || (a > 3))
+    {
+        std::cin.clear();
+        while (std::cin.get() != '\n');
+        std::cout << "Input error! Retry input" << std::endl;
+        std::cin >> a;
+
+    }
+
+
+    std::cout << "Output " << a;
+
 
 }
