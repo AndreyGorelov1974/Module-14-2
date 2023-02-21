@@ -35,6 +35,7 @@ else
 
 #include <iostream>
 
+// функция вывода на экран игрового поля
 void dispay_playing_field(char arr[][3])
 {
     for (int i = 0; i < 3; ++i)
@@ -48,35 +49,37 @@ void dispay_playing_field(char arr[][3])
     return;
 }
 
-void making_move()
+// функция хода игрока
+void making_move(char arr[][3], char player)
 {
-    /* int a = 0;
-        std::cin >> a;
+    int x, y;
+    std::cout << (player == 'X' ? "Player 1 " : "Player 2 ") << "enter the coordinates of your move separated by a space: ";
 
-        while ((a < 1) || (a > 3))
-        {
-            std::cin.clear();
-            while (std::cin.get() != '\n');
-            std::cout << "Input error! Retry input" << std::endl;
-            std::cin >> a;
+    std::cin >> x >> y;
 
-        }
+    while ((x < 1 || x > 3) || (x < 1 || x > 3))
+    {
+        /* std::cin.clear();
+        while (std::cin.get() != '\n')
+            ; */
+        std::cout << "Input error! The coordinates should be from 1 to 3. Try again: ";
+        std::cin >> x >> y;
+    }
 
-
-        std::cout << "Output " << a; */
+    std::cout << "Output " << x << y;
     return;
 }
 
 int main()
 {
-    char playing_Field[3][3] = {{'5', '3', '1'}, {'1', '5', '2'}, {'4', '4', '5'}};
+    char playing_Field[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
     char current_Move = 'X';
     std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
     for (int i = 1; i < 10; ++i)
     {
         system("cls");
-
         dispay_playing_field(playing_Field);
+        making_move(playing_Field, current_Move);
         break;
     }
 }
