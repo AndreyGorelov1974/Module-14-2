@@ -29,57 +29,65 @@ X или O (буквы латинского алфавита).
 Столько раз должен быть выполнен цикл, который спрашивает у очередного игрока координаты.
 Символ, который будет установлен в указанных координатах, можно на каждом шаге менять подобным образом:
 if (gamer_name == 'X')
-                gamer_name = 'O';
+				gamer_name = 'O';
 else
-                gamer_name = 'X';*/
+				gamer_name = 'X';*/
 
 #include <iostream>
 
-// функция вывода на экран игрового поля
+				// функция вывода на экран игрового поля
 void dispay_playing_field(char arr[][3])
 {
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int j = 0; j < 3; ++j)
-        {
-            std::cout << arr[i][j];
-        }
-        std::cout << std::endl;
-    }
-    return;
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; ++j)
+		{
+			std::cout << arr[i][j];
+		}
+		std::cout << std::endl;
+	}
+	return;
 }
 
 // функция хода игрока
 void making_move(char arr[][3], char player)
 {
-    int x, y;
-    std::cout << (player == 'X' ? "Player 1 " : "Player 2 ") << "enter the coordinates of your move separated by a space: ";
+	int x, y;
+	std::cout << (player == 'X' ? "Player 1 " : "Player 2 ") << "enter the coordinates of your move separated by a space: ";
 
-    std::cin >> x >> y;
+	std::cin >> x >> y;
 
-    while ((x < 1 || x > 3) || (x < 1 || x > 3))
-    {
-        /* std::cin.clear();
-        while (std::cin.get() != '\n')
-            ; */
-        std::cout << "Input error! The coordinates should be from 1 to 3. Try again: ";
-        std::cin >> x >> y;
-    }
+	while (true)
+	{
+		std::cin.clear();
+		while (std::cin.get() != '\n');
+		if ((x < 1 || x > 3) || (y < 1 || y > 3)) {
+			std::cout << "Input error! The coordinates should be from 1 to 3. Try again: ";
+			std::cin >> x >> y;
+		}
+		else if (arr[x - 1][y - 1] != ' ') {
+			std::cout << "Input error! There is already a symbol in these coordinates. Try again: ";
+			std::cin >> x >> y;
+		}
+		else { break; }
+	}
 
-    std::cout << "Output " << x << y;
-    return;
+	arr[x - 1][y - 1] = player;
+	return;
 }
 
 int main()
 {
-    char playing_Field[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
-    char current_Move = 'X';
-    std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
-    for (int i = 1; i < 10; ++i)
-    {
-        system("cls");
-        dispay_playing_field(playing_Field);
-        making_move(playing_Field, current_Move);
-        break;
-    }
+	char playing_Field[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
+	char current_Move = 'X';
+	std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
+	for (int i = 1; i < 10; ++i)
+	{
+
+		making_move(playing_Field, current_Move);
+		system("cls");
+		dispay_playing_field(playing_Field);
+		current_Move == 'X' ? current_Move = '0' : current_Move = 'X';
+
+	}
 }
