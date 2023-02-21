@@ -37,8 +37,13 @@ else
 
 void dispay_playing_field(char arr[][3])
 {
-    for (int i=0; i <3; ++i){
-         std::cout << arr[i] << std::endl;
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            std::cout << arr[i][j];
+        }
+        std::cout << std::endl;
     }
     return;
 }
@@ -64,14 +69,14 @@ void making_move()
 
 int main()
 {
-    char playing_Field[3][3] = {{'5', ' ', ' '}, {' ', '5', ' '}, {' ', ' ', '5'}};
+    char playing_Field[3][3] = {{'5', '3', '1'}, {'1', '5', '2'}, {'4', '4', '5'}};
     char current_Move = 'X';
     std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
     for (int i = 1; i < 10; ++i)
     {
         system("cls");
+
         dispay_playing_field(playing_Field);
         break;
-
     }
 }
