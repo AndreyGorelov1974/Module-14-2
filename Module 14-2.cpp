@@ -35,7 +35,7 @@ else
 
 #include <iostream>
 
-				// функция вывода на экран игрового поля
+// функция вывода на экран игрового поля
 void dispay_playing_field(char arr[][3])
 {
 	for (int i = 0; i < 3; ++i)
@@ -59,28 +59,36 @@ void making_move(char arr[][3], char player)
 
 	while (true)
 	{
+		//если введены не числа сбрасываем и очищаем cin
 		std::cin.clear();
 		while (std::cin.get() != '\n');
+		//проверяем правильность координат
 		if ((x < 1 || x > 3) || (y < 1 || y > 3)) {
 			std::cout << "Input error! The coordinates should be from 1 to 3. Try again: ";
 			std::cin >> x >> y;
 		}
+		//проверяем пусто ли поле по этим координатам
 		else if (arr[x - 1][y - 1] != ' ') {
 			std::cout << "Input error! There is already a symbol in these coordinates. Try again: ";
 			std::cin >> x >> y;
 		}
+		//если координаты корректны выходим из цикла
 		else { break; }
 	}
-
+	//записываем соответсвующий символ на игровое поле
 	arr[x - 1][y - 1] = player;
 	return;
 }
 
 int main()
 {
+	//объявляем и инициализируем пробелам массив игрового поля
 	char playing_Field[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
+	//первые ходят крестики
 	char current_Move = 'X';
+
 	std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
+	//цикл на 9 ходов
 	for (int i = 1; i < 10; ++i)
 	{
 
