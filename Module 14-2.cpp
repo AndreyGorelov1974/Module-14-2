@@ -2,7 +2,7 @@
 Что нужно сделать
 Старая добрая игра на страницах всех школьных тетрадей.
 Поле размером 3 × 3 представлено в виде двумерного массива с типом элементов char.
-Участвуют два игрока, они ходят по очереди и ставят в указанные ими в стандартном вводе координаты свой символ — 
+Участвуют два игрока, они ходят по очереди и ставят в указанные ими в стандартном вводе координаты свой символ —
 X или O (буквы латинского алфавита).
 Как только у одного из игроков будет установлено подряд три крестика или три нолика, он побеждает.
 Если свободных клеток не осталось, а трёх совпадающих элементов не найдено, то объявляется ничья.
@@ -28,29 +28,50 @@ X или O (буквы латинского алфавита).
 Здесь заранее известно число ходов — 3 * 3.
 Столько раз должен быть выполнен цикл, который спрашивает у очередного игрока координаты.
 Символ, который будет установлен в указанных координатах, можно на каждом шаге менять подобным образом:
-if (gamer_name == 'X') 
-                gamer_name = 'O'; 
-else 
+if (gamer_name == 'X')
+                gamer_name = 'O';
+else
                 gamer_name = 'X';*/
 
 #include <iostream>
 
-int main()
+void dispay_playing_field(char arr[][3])
 {
-    int a = 0;
-    std::cin >> a;
+    for (int i=0; i <3; ++i){
+         std::cout << arr[i] << std::endl;
+    }
+    return;
+}
 
-    while ((a < 1) || (a > 3))
-    {
-        std::cin.clear();
-        while (std::cin.get() != '\n');
-        std::cout << "Input error! Retry input" << std::endl;
+void making_move()
+{
+    /* int a = 0;
         std::cin >> a;
 
+        while ((a < 1) || (a > 3))
+        {
+            std::cin.clear();
+            while (std::cin.get() != '\n');
+            std::cout << "Input error! Retry input" << std::endl;
+            std::cin >> a;
+
+        }
+
+
+        std::cout << "Output " << a; */
+    return;
+}
+
+int main()
+{
+    char playing_Field[3][3] = {{'5', ' ', ' '}, {' ', '5', ' '}, {' ', ' ', '5'}};
+    char current_Move = 'X';
+    std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
+    for (int i = 1; i < 10; ++i)
+    {
+        system("cls");
+        dispay_playing_field(playing_Field);
+        break;
+
     }
-
-
-    std::cout << "Output " << a;
-
-
 }
