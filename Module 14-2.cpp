@@ -54,10 +54,17 @@ void dispay_playing_field(char arr[][3])
 char winner(char arr[][3], int x, int y, char player)
 {
     bool win = true;
-   /*  for (int i = 0; i < 3; ++i)
-    {  
-
-      }; */
+    for (int i = 0; i < 3; ++i)
+    {
+        if (arr[x][i] != player)
+        {
+            win = false;
+        }
+    }
+    if (win)
+    {
+        return player;
+    }
     return ' ';
 }
 
@@ -108,6 +115,21 @@ int main()
 
         system("cls");
         dispay_playing_field(playing_Field);
+        winnerFlag = winner(playing_Field, x - 1, y - 1, current_Move);
+        if (winnerFlag != ' ')
+        {
+            break;
+        }
         current_Move == 'X' ? current_Move = '0' : current_Move = 'X';
     }
+
+    if (winnerFlag == ' ')
+    {
+        std::cout << "Sorry Nobody";
+    }
+    else
+    {
+        std::cout << (winnerFlag == 'X' ? "Player 1 " : "Player 2 ") << "win!!!";
+    }
+}
 }
