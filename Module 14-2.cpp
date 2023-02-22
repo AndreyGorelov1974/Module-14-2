@@ -29,80 +29,85 @@ X или O (буквы латинского алфавита).
 Столько раз должен быть выполнен цикл, который спрашивает у очередного игрока координаты.
 Символ, который будет установлен в указанных координатах, можно на каждом шаге менять подобным образом:
 if (gamer_name == 'X')
-				gamer_name = 'O';
+                gamer_name = 'O';
 else
-				gamer_name = 'X';*/
+                gamer_name = 'X';*/
 
 #include <iostream>
 
-//функция вывода на экран игрового поля
+// функция вывода на экран игрового поля
 void dispay_playing_field(char arr[][3])
 {
-	for (int i = 0; i < 3; ++i)
-	{
-		for (int j = 0; j < 3; ++j)
-		{
-			std::cout << arr[i][j];
-		}
-		std::cout << std::endl;
-	}
-	return;
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            std::cout << arr[i][j];
+        }
+        std::cout << std::endl;
+    }
+    return;
 }
 
-//функция определения победителя, получает координаты очередного хода,
-//возвращает символпобедителя или пробел если победителя ещё нет
-char winner(int x, int y){
-    return ' ';
-}
-
-//функция хода игрока
-char making_move(char arr[][3], char player)
+// функция определения победителя, получает координаты очередного хода,
+// возвращает символ победителя или пробел если победителя ещё нет
+char winner(char arr[][3], int x, int y, char player)
 {
-	int x, y;
-	std::cout << (player == 'X' ? "Player 1 " : "Player 2 ") << "enter the coordinates of your move separated by a space: ";
+    bool win = true;
+   /*  for (int i = 0; i < 3; ++i)
+    {  
 
-	std::cin >> x >> y;
-
-	while (true)
-	{
-		//если введены не числа сбрасываем и очищаем cin
-		std::cin.clear();
-		while (std::cin.get() != '\n');
-		//проверяем правильность координат
-		if ((x < 1 || x > 3) || (y < 1 || y > 3)) {
-			std::cout << "Input error! The coordinates should be from 1 to 3. Try again: ";
-			std::cin >> x >> y;
-		}
-		//проверяем пусто ли поле по этим координатам
-		else if (arr[x - 1][y - 1] != ' ') {
-			std::cout << "Input error! There is already a symbol in these coordinates. Try again: ";
-			std::cin >> x >> y;
-		}
-		//если координаты корректны выходим из цикла
-		else { break; }
-	}
-	//записываем соответсвующий символ на игровое поле
-	arr[x - 1][y - 1] = player;
-	return winner (x - 1,y - 1);
+      }; */
+    return ' ';
 }
 
 int main()
 {
-	//объявляем и инициализируем пробелам массив игрового поля
-	char playing_Field[3][3] = { {'*', '*', '*'}, {'*', '*', '*'}, {'*', '*', '*'} };
-	//первые ходят крестики
-	char current_Move = 'X';
+    // объявляем и инициализируем пробелам массив игрового поля
+    char playing_Field[3][3] = {{'*', '*', '*'}, {'*', '*', '*'}, {'*', '*', '*'}};
+    // первые ходят крестики
+    char current_Move = 'X';
     char winnerFlag = ' ';
 
-	std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
-	//цикл на 9 ходов
-	for (int i = 1; i < 10; ++i)
-	{
+    std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
+    // цикл на 9 ходов
+    for (int i = 1; i < 10; ++i)
+    {
 
-		winnerFlag = making_move(playing_Field, current_Move);
-		system("cls");
-		dispay_playing_field(playing_Field);
-		current_Move == 'X' ? current_Move = '0' : current_Move = 'X';
+        int x, y;
+        std::cout << (current_Move == 'X' ? "Player 1 " : "Player 2 ") << "enter the coordinates of your move separated by a space: ";
 
-	}
+        std::cin >> x >> y;
+
+        while (true)
+        {
+            // если введены не числа сбрасываем и очищаем cin
+            std::cin.clear();
+            while (std::cin.get() != '\n')
+                ;
+            // проверяем правильность координат
+            if ((x < 1 || x > 3) || (y < 1 || y > 3))
+            {
+                std::cout << "Input error! The coordinates should be from 1 to 3. Try again: ";
+                std::cin >> x >> y;
+            }
+            // проверяем пусто ли поле по этим координатам
+            else if (playing_Field[x - 1][y - 1] != '*')
+            {
+                std::cout << "Input error! There is already a symbol in these coordinates. Try again: ";
+                std::cin >> x >> y;
+            }
+            // если координаты корректны выходим из цикла
+            else
+            {
+                break;
+            }
+        }
+        // записываем соответсвующий символ на игровое поле
+        playing_Field[x - 1][y - 1] = current_Move;
+
+        system("cls");
+        dispay_playing_field(playing_Field);
+        current_Move == 'X' ? current_Move = '0' : current_Move = 'X';
+    }
 }
