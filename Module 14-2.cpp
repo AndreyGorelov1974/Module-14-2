@@ -42,7 +42,7 @@ void dispay_playing_field(char arr[][3])
     {
         for (int j = 0; j < 3; ++j)
         {
-            std::cout << arr[i][j];
+            std::cout << arr[j][i];
         }
         std::cout << std::endl;
     }
