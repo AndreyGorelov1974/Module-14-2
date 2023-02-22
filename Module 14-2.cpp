@@ -132,4 +132,3 @@ int main()
         std::cout << (winnerFlag == 'X' ? "Player 1 " : "Player 2 ") << "win!!!";
     }
 }
-}
