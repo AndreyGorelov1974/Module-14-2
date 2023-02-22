@@ -54,9 +54,22 @@ void dispay_playing_field(char arr[][3])
 char winner(char arr[][3], int x, int y, char player)
 {
     bool win = true;
+    //проверяем вертикаль с координатой хода
     for (int i = 0; i < 3; ++i)
     {
         if (arr[x][i] != player)
+        {
+            win = false;
+        }
+    }
+    if (win)
+    {
+        return player;
+    }
+    //проверяем горизонталь с координатой хода
+    for (int i = 0; i < 3; ++i)
+    {
+        if (arr[i][y] != player)
         {
             win = false;
         }
