@@ -29,119 +29,159 @@ X или O (буквы латинского алфавита).
 Столько раз должен быть выполнен цикл, который спрашивает у очередного игрока координаты.
 Символ, который будет установлен в указанных координатах, можно на каждом шаге менять подобным образом:
 if (gamer_name == 'X')
-                gamer_name = 'O';
+				gamer_name = 'O';
 else
-                gamer_name = 'X';*/
+				gamer_name = 'X';*/
 
 #include <iostream>
 
-// функция вывода на экран игрового поля
-void dispay_playing_field(char arr[][3])
+				// функция вывода на экран игрового поля
+void dispay_playing_field(char arr[][13])
 {
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int j = 0; j < 3; ++j)
-        {
-            std::cout << arr[j][i];
-        }
-        std::cout << std::endl;
-    }
-    return;
+	for (int i = 0; i < 13; ++i)
+	{
+		for (int j = 0; j < 13; ++j)
+		{
+			std::cout << arr[j][i];
+		}
+		std::cout << std::endl;
+	}
+	return;
 }
 
 // функция определения победителя, получает координаты очередного хода,
 // возвращает символ победителя или пробел если победителя ещё нет
 char winner(char arr[][3], int x, int y, char player)
 {
-    bool win = true;
-    //проверяем вертикаль с координатой хода
-    for (int i = 0; i < 3; ++i)
-    {
-        if (arr[x][i] != player)
-        {
-            win = false;
-        }
-    }
-    if (win)
-    {
-        return player;
-    }
-    //проверяем горизонталь с координатой хода
-    for (int i = 0; i < 3; ++i)
-    {
-        if (arr[i][y] != player)
-        {
-            win = false;
-        }
-    }
-    if (win)
-    {
-        return player;
-    }
-    return ' ';
+	//проверяем вертикаль с координатой хода
+	bool win = true;
+	for (int i = 0; i < 3; ++i)
+	{
+		if (arr[x][i] != player)
+		{
+			win = false;
+		}
+	}
+	if (win)
+	{
+		return player;
+	}
+
+	//проверяем горизонталь с координатой хода
+	win = true;
+	for (int i = 0; i < 3; ++i)
+	{
+		if (arr[i][y] != player)
+		{
+			win = false;
+		}
+	}
+	if (win)
+	{
+		return player;
+	}
+
+	//проверяем главную диагональ с координатой хода
+	win = true;
+	if (x == y) {
+		for (int i = 0; i < 3; ++i)
+		{
+			if (arr[i][i] != player)
+			{
+				win = false;
+			}
+		}
+		if (win)
+		{
+			return player;
+		}
+	}
+
+	//проверяем другую диагональ с координатой хода
+	win = true;
+	if ((x == y) || (x == 0 && y == 2) || (x == 2 && y == 0)) {
+		for (int i = 0; i < 3; ++i)
+		{
+			if (arr[i][2 - i] != player)
+			{
+				win = false;
+			}
+		}
+		if (win)
+		{
+			return player;
+		}
+	}
+
+
+	return ' ';
 }
 
 int main()
 {
-    // объявляем и инициализируем пробелам массив игрового поля
-    char playing_Field[3][3] = {{'*', '*', '*'}, {'*', '*', '*'}, {'*', '*', '*'}};
-    // первые ходят крестики
-    char current_Move = 'X';
-    char winnerFlag = ' ';
+	// объявляем и инициализируем пробелам массив игрового поля
+	char playing_Field[3][3] = { {42, '*', '*'}, {'*', '*', '*'}, {'*', '*', '*'} };
+	//объявляем и инициализируем массив отображения игрового поля
+	char playing_Field_Display[13][13] = { {201,186,186,186,204,186,186,186,204,186,186,186,200}, };
+	// первые ходят крестики
+	char current_Move = 'X';
+	char winnerFlag = ' ';
 
-    std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
-    // цикл на 9 ходов
-    for (int i = 1; i < 10; ++i)
-    {
+	std::cout << "2 1" << playing_Field_Display[1][0] << std::endl;
 
-        int x, y;
-        std::cout << (current_Move == 'X' ? "Player 1 " : "Player 2 ") << "enter the coordinates of your move separated by a space: ";
+	std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
+	// цикл на 9 ходов
+	for (int i = 1; i < 10; ++i)
+	{
 
-        std::cin >> x >> y;
+		int x, y;
+		std::cout << (current_Move == 'X' ? "Player 1 " : "Player 2 ") << "enter the coordinates of your move separated by a space: ";
 
-        while (true)
-        {
-            // если введены не числа сбрасываем и очищаем cin
-            std::cin.clear();
-            while (std::cin.get() != '\n')
-                ;
-            // проверяем правильность координат
-            if ((x < 1 || x > 3) || (y < 1 || y > 3))
-            {
-                std::cout << "Input error! The coordinates should be from 1 to 3. Try again: ";
-                std::cin >> x >> y;
-            }
-            // проверяем пусто ли поле по этим координатам
-            else if (playing_Field[x - 1][y - 1] != '*')
-            {
-                std::cout << "Input error! There is already a symbol in these coordinates. Try again: ";
-                std::cin >> x >> y;
-            }
-            // если координаты корректны выходим из цикла
-            else
-            {
-                break;
-            }
-        }
-        // записываем соответсвующий символ на игровое поле
-        playing_Field[x - 1][y - 1] = current_Move;
+		std::cin >> x >> y;
 
-        system("cls");
-        dispay_playing_field(playing_Field);
-        winnerFlag = winner(playing_Field, x - 1, y - 1, current_Move);
-        if (winnerFlag != ' ')
-        {
-            break;
-        }
-        current_Move == 'X' ? current_Move = '0' : current_Move = 'X';
-    }
+		while (true)
+		{
+			// если введены не числа сбрасываем и очищаем cin
+			std::cin.clear();
+			while (std::cin.get() != '\n')
+				;
+			// проверяем правильность координат
+			if ((x < 1 || x > 3) || (y < 1 || y > 3))
+			{
+				std::cout << "Input error! The coordinates should be from 1 to 3. Try again: ";
+				std::cin >> x >> y;
+			}
+			// проверяем пусто ли поле по этим координатам
+			else if (playing_Field[x - 1][y - 1] != '*')
+			{
+				std::cout << "Input error! There is already a symbol in these coordinates. Try again: ";
+				std::cin >> x >> y;
+			}
+			// если координаты корректны выходим из цикла
+			else
+			{
+				break;
+			}
+		}
+		// записываем соответсвующий символ на игровое поле
+		playing_Field[x - 1][y - 1] = current_Move;
 
-    if (winnerFlag == ' ')
-    {
-        std::cout << "Sorry Nobody";
-    }
-    else
-    {
-        std::cout << (winnerFlag == 'X' ? "Player 1 " : "Player 2 ") << "win!!!";
-    }
+		system("cls");
+		dispay_playing_field(playing_Field_Display);
+		winnerFlag = winner(playing_Field, x - 1, y - 1, current_Move);
+		if (winnerFlag != ' ')
+		{
+			break;
+		}
+		current_Move == 'X' ? current_Move = '0' : current_Move = 'X';
+	}
+
+	if (winnerFlag == ' ')
+	{
+		std::cout << "Sorry Nobody";
+	}
+	else
+	{
+		std::cout << (winnerFlag == 'X' ? "Player 1 " : "Player 2 ") << "win!!!";
+	}
 }
