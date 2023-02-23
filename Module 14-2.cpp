@@ -219,6 +219,6 @@ int main()
 	}
 	else
 	{
-		std::cout << "Сongratulations! " << (winnerFlag == 'X' ? "Player 1" : "Player 2") << " win!";
+		std::cout << "Congratulations! " << (winnerFlag == 'X' ? "Player 1" : "Player 2") << " win!";
 	}
 }
