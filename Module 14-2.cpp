@@ -56,7 +56,6 @@ void draw_symbol(char arr[][13], char arrX[][3], char arr0[][3], int x, int y, c
 	return;
 }
 
-
 // функция вывода на экран игрового поля
 void dispay_playing_field(char arr[][13])
 {
