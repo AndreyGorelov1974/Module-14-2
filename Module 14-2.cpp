@@ -36,13 +36,13 @@ else
 #include <iostream>
 
 				// функция вывода на экран игрового поля
-void dispay_playing_field(char arr[][13])
+void dispay_playing_field(char arr[][3])
 {
-	for (int i = 0; i < 13; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
-		for (int j = 0; j < 13; ++j)
+		for (int j = 0; j < 3; ++j)
 		{
-			std::cout << arr[j][i];
+			std::cout << arr[i][j];
 		}
 		std::cout << std::endl;
 	}
@@ -57,7 +57,7 @@ char winner(char arr[][3], int x, int y, char player)
 	bool win = true;
 	for (int i = 0; i < 3; ++i)
 	{
-		if (arr[x][i] != player)
+		if (arr[i][x] != player)
 		{
 			win = false;
 		}
@@ -71,7 +71,7 @@ char winner(char arr[][3], int x, int y, char player)
 	win = true;
 	for (int i = 0; i < 3; ++i)
 	{
-		if (arr[i][y] != player)
+		if (arr[y][i] != player)
 		{
 			win = false;
 		}
@@ -120,7 +120,7 @@ char winner(char arr[][3], int x, int y, char player)
 int main()
 {
 	// объявляем и инициализируем пробелам массив игрового поля
-	char playing_Field[3][3] = { {42, '*', '*'}, {'*', '*', '*'}, {'*', '*', '*'} };
+	char playing_Field[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 	//объявляем и инициализируем массив отображения игрового поля
 	char playing_Field_Display[13][13] = 
 	{ {201,186,186,186,204,186,186,186,204,186,186,186,200},
@@ -140,6 +140,7 @@ int main()
 	// первые ходят крестики
 	char current_Move = 'X';
 	char winnerFlag = ' ';
+
 
 	std::cout << "Welcome to the Tic Tac toe game program!" << std::endl;
 	// цикл на 9 ходов
@@ -164,7 +165,7 @@ int main()
 				std::cin >> x >> y;
 			}
 			// проверяем пусто ли поле по этим координатам
-			else if (playing_Field[x - 1][y - 1] != '*')
+			else if (playing_Field[y - 1][x - 1] != ' ')
 			{
 				std::cout << "Input error! There is already a symbol in these coordinates. Try again: ";
 				std::cin >> x >> y;
@@ -176,10 +177,10 @@ int main()
 			}
 		}
 		// записываем соответсвующий символ на игровое поле
-		playing_Field[x - 1][y - 1] = current_Move;
+		playing_Field[y - 1][x - 1] = current_Move;
 
 		system("cls");
-		dispay_playing_field(playing_Field_Display);
+		dispay_playing_field(playing_Field);
 		winnerFlag = winner(playing_Field, x - 1, y - 1, current_Move);
 		if (winnerFlag != ' ')
 		{
@@ -190,10 +191,10 @@ int main()
 
 	if (winnerFlag == ' ')
 	{
-		std::cout << "Sorry Nobody";
+		std::cout << "Sorry nobody win.";
 	}
 	else
 	{
-		std::cout << (winnerFlag == 'X' ? "Player 1 " : "Player 2 ") << "win!!!";
+		std::cout << (winnerFlag == 'X' ? "Player 1" : "Player 2") << " win!!!";
 	}
 }
